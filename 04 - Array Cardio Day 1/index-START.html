@@ -38,28 +38,94 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    function isBornInFiteenHundreds(inventor) {
+      if (inventor.year >= 1500 && inventor.year <1600) {
+        return true
+      } 
+    }
+    fifteenHundredInventors = inventors.filter(isBornInFiteenHundreds)
+    console.table(fifteenHundredInventors)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    function firstAndLasts(inventor) {
+      return `${inventor.first} ${inventor.last}`;
+    }
+
+    firstAndLastsArray = inventors.map(firstAndLasts)
+    console.log(firstAndLastsArray)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    function isOlder(firstPerson, secondPerson) {
+      if (firstPerson.year > secondPerson.year){
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    }
+
+    const ordered = inventors.sort(isOlder)
+    console.table(ordered)
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    function yearsLived(total, inventor) {
+      return total + (inventor.passed - inventor.year);
+    }
+
+    const totalYears = inventors.reduce(yearsLived, 0);
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
+    function longestLife(firstPerson, secondPerson) {
+      let firstPersonAge = firstPerson.passed - firstPerson.year;
+      let secondPersonAge = secondPerson.passed - secondPerson.year;
+      if (firstPersonAge < secondPersonAge){
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    }
+
+    yearsLivedSorted = inventors.sort(longestLife)
+    console.table(yearsLivedSorted);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
-
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    function alphabeticalSort(firstPerson, secondPerson) {
+      const [firstPersonLast, firstPersonFirst] = firstPerson.split(', ');
+      const [secondPersonLast, secondPersonFirst] = secondPerson.split(', ');
+      if (firstPersonLast > secondPersonLast) {
+        return -1;
+      }
+      else {
+        return 1;
+      }
+    }
+
+    alphabeticalSorted = people.sort(alphabeticalSort);
+    console.table(alphabeticalSorted);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    function countInstances(obj, item) {
+      if (!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }
+    
+    counts = data.reduce(countInstances, {});
+    console.log(counts);
 
   </script>
 </body>
